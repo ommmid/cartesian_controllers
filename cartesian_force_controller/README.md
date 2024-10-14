@@ -16,7 +16,9 @@ The responsiveness of the behavior can be tweaked by the following parameters:
   to first weigh the different Cartesian axes with the controller gains and adjust the
   *overall* responsiveness with this parameter.
 
-In contrast to the `cartesian_motion_controller`, the internal `iterations` parameter has no effect and is identically set to `1`.
+In contrast to the `cartesian_motion_controller`, the internal `iterations` parameter has no effect and is identically  set to `1`. Also, the force error is calculated by adding up the current force (sensed by ft_sensor at the ee) and the target force:
+$F_{ee} = F_{target} + F_{sensor}$
+
 Also note that all parameters can be changed at runtime and in realtime.
 This means that you could easily adjust them in your use cases with a running robot.
 For instance, `error_scale` could start in a higher value when teleoperating

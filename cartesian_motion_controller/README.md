@@ -3,7 +3,7 @@
 This controller is a flexible and versatile default for Cartesian motion without contact.
 The primary use case is approaching and tracking moving targets in the robots workspace.
 One of the advantages is that the controller interpolates for you, i.e. you do
-not need to densely sample intermediate poses towards your targets.
+not need to densely sample intermediate poses towards your targets.   
 
 As an example, the `CartesianMotionController` can be given sparsely sampled target poses
 with a relatively low frequency.
@@ -25,6 +25,25 @@ The interpolation behavior can be tweaked by the following parameters:
 * The number of internal `iterations` per robot control cycle. The higher this
   value, the more does the controller become an inverse kinematics solver for accurate tracking.
 
+Algorithm:    
+for each control update:    
+$~~~~~$ for i in num_iter:    
+$~~~~~~~~~~ X_{error} = X_{target} - X_{current} ~~~~~$  => This includes rot_vector error        
+$~~~~~~~~~~ X_{pd} = kp X_{error} + kd * (X_{error} - X_{error\_prev})/(internal\_period)$     
+$~~~~~~~~~~ X_{input} = error\_scale * X_{pd}$     
+$~~~~~~~~~~ joint\_motion = IK(X_{input})~~~~~$ => the method used here is **ForwardDynamicsSolver** which means 
+they say the error in Cartesian is like force that is dragging the end-effector. We are not measuing any force 
+here at all. $ joint\_motion $ is a JointTrajectoryPoint type holding positions, velocities and accelerations of each joint
+
+**ForwardDynamicsSolver**     
+$ \ddot{q} = H^{-1} ( J^T F_{ee}) $       
+They are saying $F_{ee}$ is equal to $X_{input}$ multiplied by a scale
+So basically, their cartesian motion control, to me, is like a admittance control but without measuring force, we 
+calculate the force at ee by the Cartesian motion error.    
+
+If we would use the $J^T F_{ee}$ as is in a control law like the following, then we can call it impedance control; 
+straight to joint torque:   
+$ \tau = gravity(q) + J^T F_{ee} $
 
 ## Getting Started
 We assume that you have the `cartesian_controller_simulation` package installed.
