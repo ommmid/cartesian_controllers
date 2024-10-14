@@ -19,11 +19,13 @@ find_package(cartesian_controller_base REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(glfw3 REQUIRED)
+
 
 # Mujoco comes as a pre-built library package.
 # Extract this package somewhere and point CMake towards it during the build process.
 if(NOT DEFINED MUJOCO_DIR)
-        set(MUJOCO_DIR "$ENV{HOME}/mujoco-3.0.0") # CI setting
+        set(MUJOCO_DIR "$ENV{HOME}/mujoco-3.2.3") # CI setting
         message(WARNING "MUJOCO_DIR not specified. Using default ${MUJOCO_DIR}")
 endif()
 set(MUJOCO_INCLUDE_DIRS ${MUJOCO_DIR}/include)
@@ -87,6 +89,7 @@ target_include_directories(mujoco_simulator PUBLIC
 # X11 OpenGL: link with libmujoco210.so, libglew.so, libGL.so
 target_link_libraries(mujoco_simulator PUBLIC
         ${MUJOCO_LIBRARIES}
+        glfw
 )
 
 

@@ -30,6 +30,7 @@
                 <light directional="true" diffuse=".8 .8 .8" specular=".2 .2 .2" pos="0 0 5" dir="0 0 -1" castshadow="false"/>
                 <geom name="floor" pos="0 0 -0.0" size="0 0 1" type="plane" material="matplane"/>
                 <geom size="0.02 0.015" pos="0 0 0.015" type="cylinder" material="base"/>
+                <geom name="cp_prob_plate" size="0.5 0.05 0.5" pos="1.0 0.5 0.0" type="box" material="base"/>
                 <body name="link1" pos="0 0 0.045">
                         <inertial pos="0 0 0.075" mass="1" diaginertia="1 1 1"/>
                         <joint name="joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319"/>
@@ -72,6 +73,7 @@
                                 </body>
                         </body>
                 </body>
+                <!-- <include file="object.xml"/> -->
         </worldbody>
 
         <!-- Keep the order of joint creation from above. That's crucial for equally indexing joint state vectors and actuator torque vectors in the solver -->

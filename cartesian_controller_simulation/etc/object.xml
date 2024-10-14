@@ -1,0 +1,9 @@
+<!-- cp probing object in the scene -->
+<prob_object>
+    <geom type="cylinder" size="0.2 0.15" pos="0.1 0.1 0.015" quat="0.0 0.0 0.0 1.0" material="base"/>
+    <!-- <body childclass="sub">
+        <geom type="ellipsoid"/>
+        <geom type="sphere" rgba="0 0 1 1"/>
+        <geom type="cylinder" class="main"/>
+    </body> -->
+</prob_object>
