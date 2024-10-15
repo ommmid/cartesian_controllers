@@ -142,9 +142,9 @@ void MuJoCoSimulator::controlCBImpl([[maybe_unused]] const mjModel * m, mjData *
   command_mutex.unlock();
 }
 
-int MuJoCoSimulator::simulate(const std::string & model_xml, bool with_head)
+int MuJoCoSimulator::simulate(const std::string & model_xml, bool headless)
 {
-  return with_head ? getInstance().simulateImplWHead(model_xml) : getInstance().simulateImpl(model_xml);
+  return headless ? getInstance().simulateImpl(model_xml) : getInstance().simulateImplWHead(model_xml);
 }
 
 int MuJoCoSimulator::simulateImpl(const std::string & model_xml)
@@ -266,7 +266,7 @@ int MuJoCoSimulator::simulateImplWHead(const std::string & model_xml){
 
       // Provide fresh data for ROS2-control
       state_mutex.lock();
-      syncStates();
+      syncStates(); // Mujoco => ROS2-control
       state_mutex.unlock();
 
     }

@@ -45,6 +45,8 @@ from launch.substitutions import (
 )
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument
 
 import os
 
@@ -57,7 +59,9 @@ else:  # foxy
 
 def generate_launch_description():
     # Declare arguments
-    declared_arguments = []
+    declared_arguments = [
+        DeclareLaunchArgument('mujoco_headless', default_value="true", description='run Mujoco headless')
+    ]
 
     # Build the URDF with command line xacro.
     # We also pass parameters for the system_interface here.
@@ -81,6 +85,9 @@ def generate_launch_description():
                     "robot_mujoco.xml",
                 ]
             ),
+            " ",
+            "headless:=",
+            LaunchConfiguration('mujoco_headless')
         ]
     )
     robot_description = {"robot_description": robot_description_content}

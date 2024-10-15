@@ -132,6 +132,7 @@ private:
 
   // Parameters
   std::string m_mujoco_model;
+  std::string headless; // run Mujoco headless?
 };
 
 }  // namespace cartesian_controller_simulation

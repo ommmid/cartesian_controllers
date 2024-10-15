@@ -78,7 +78,9 @@ Simulator::return_type Simulator::configure(const hardware_interface::HardwareIn
   // Let the thread's destructor clean-up all resources
   // once users close the simulation window.
   m_mujoco_model = info_.hardware_parameters["mujoco_model"];
-  m_simulation = std::thread(MuJoCoSimulator::simulate, m_mujoco_model, true);
+  headless = info_.hardware_parameters["headless"];
+  m_simulation = std::thread(MuJoCoSimulator::simulate, m_mujoco_model, 
+                  headless == "true" ? true: false);
   m_simulation.detach();
 
   m_positions.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());

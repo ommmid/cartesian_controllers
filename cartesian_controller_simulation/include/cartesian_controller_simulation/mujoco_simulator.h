@@ -104,7 +104,7 @@ public:
   void controlCBImpl(const mjModel * m, mjData * d);
 
   // Call this in a separate thread
-  static int simulate(const std::string & model_xml, bool with_head = false);
+  static int simulate(const std::string & model_xml, bool headless = true);
   int simulateImpl(const std::string & model_xml);
   int simulateImplWHead(const std::string & model_xml);
 

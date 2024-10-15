@@ -19,6 +19,7 @@
                 <hardware>
                         <plugin>cartesian_controller_simulation/Simulator</plugin>
                         <param name="mujoco_model">$(arg mujoco_model)</param>
+                        <param name="headless">$(arg headless)</param>
                 </hardware>
         </ros2_control>
 
