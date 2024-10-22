@@ -266,10 +266,19 @@ int MuJoCoSimulator::simulateImplWHead(const std::string & model_xml){
 
       // Provide fresh data for ROS2-control
       state_mutex.lock();
-      syncStates(); // Mujoco => ROS2-control
+      syncStates(); 
       state_mutex.unlock();
 
+      // Note:
+      // syncStates():  Mujoco => update internal varaibales like pos_state
+      // read():        internal varaibales like pos_state => ROS2-control expos them
     }
+
+    // std::cout << "simulator: ";
+    // for(int i = 0; i < pos_state.size(); ++i){
+    //   std::cout << pos_state[i] << " ";
+    // }
+    // std::cout << std::endl;
 
     // get framebuffer viewport
     mjrRect viewport = {0, 0, 0, 0};

@@ -246,6 +246,11 @@ Simulator::return_type Simulator::read()
   m_positions = m_position_commands;
   m_velocities = m_velocity_commands;
 
+  // for(int i = 0; i < m_positions.size(); ++i){
+  //     m_positions[i] = 2.0 * m_positions[i];
+  //     m_velocities[i] = 2.0 * m_velocities[i];
+  // }
+
   return return_type::OK;
 }
 

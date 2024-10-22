@@ -16,8 +16,10 @@ The responsiveness of the behavior can be tweaked by the following parameters:
   to first weigh the different Cartesian axes with the controller gains and adjust the
   *overall* responsiveness with this parameter.
 
-In contrast to the `cartesian_motion_controller`, the internal `iterations` parameter has no effect and is identically  set to `1`. Also, the force error is calculated by adding up the current force (sensed by ft_sensor at the ee) and the target force:
-$F_{ee} = F_{target} + F_{sensor}$
+In contrast to the `cartesian_motion_controller`, the internal `iterations` parameter has no effect and is identically  set to `1`. Also, the force error is calculated by adding up the current force (sensed by ft_sensor at the ee) and the target force:  
+$F_{ee} = F_{target} + F_{sensor}$  
+Notice we add the feedback signal to the target force not subtract. The reason is that the sensor on the robot is sensing the contact force from the environment while $F_{target}$ is the force extreted to the env by robot. So the sensor is measuring the negative force, so $F_{target} - (-F_{sensor})$ is the net force we come up with.     
+This is a Direct Force control where we know the desired contact force (target). But we could have Indirect Force control where we have a virtual spring attached to a desired position (from the end-effector) and $k \Delta X$ is our desired force. We design for stifness and damping but we leave the mass to be the mass of the robot. If we make the mass also programmable, then the triplet of stiffness, damping and mass becomes full Impedance.
 
 Also note that all parameters can be changed at runtime and in realtime.
 This means that you could easily adjust them in your use cases with a running robot.

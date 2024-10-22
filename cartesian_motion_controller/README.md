@@ -30,8 +30,8 @@ for each control update:
 $~~~~~$ for i in num_iter:    
 $~~~~~~~~~~ X_{error} = X_{target} - X_{current} ~~~~~$  => This includes rot_vector error        
 $~~~~~~~~~~ X_{pd} = kp X_{error} + kd * (X_{error} - X_{error\_prev})/(internal\_period)$     
-$~~~~~~~~~~ X_{input} = error\_scale * X_{pd}$     
-$~~~~~~~~~~ joint\_motion = IK(X_{input})~~~~~$ => the method used here is **ForwardDynamicsSolver** which means 
+$~~~~~~~~~~ X_{input} = error\_scale * X_{pd}$ => this is like spring force $F_{spring} = k * \Delta X$     
+$~~~~~~~~~~ joint\_motion = IK(X_{input})~~~~~$ => the IK method here is not really inverse kinematics (i dont know why they call it that), it is **ForwardDynamicsSolver** which means 
 they say the error in Cartesian is like force that is dragging the end-effector. We are not measuing any force 
 here at all. $ joint\_motion $ is a JointTrajectoryPoint type holding positions, velocities and accelerations of each joint
 
